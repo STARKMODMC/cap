@@ -37,8 +37,13 @@ function normalizeOrigin(val) {
   }
 }
 
-const url = (p) =>
-  new URL(String(p).replace(/^\/+/, ""), document.baseURI).toString();
+const currentUrl = new URL(document.baseURI);
+
+const url = (p) => {
+  const normalizedPath = currentUrl.pathname.endsWith("/") ? currentUrl.pathname : currentUrl.pathname + "/";
+
+  return new URL(normalizedPath + String(p).replace(/^\/+/, ""), document.baseURI).toString();
+};
 
 const api = async (method, path, body) => {
   try {
