@@ -17,10 +17,14 @@ const resolveSafePath = (rel) => {
   return resolved;
 };
 
+let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
+
+httpPrefix = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
+
 export const publicStatic = new Elysia().get(
   "/public/*",
   async ({ cookie, set, request, redirect, headers }) => {
-    const rawPath = new URL(request.url).pathname.replace(/^\/public\/?/, "");
+    const rawPath = new URL(request.url).pathname.replace(new RegExp(`/^\${httpPrefix}public\/?/`), "");
     let rel;
     try {
       rel = decodeURIComponent(rawPath);
