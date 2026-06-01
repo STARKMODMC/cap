@@ -131,7 +131,7 @@ new Elysia({
 
     const httpPrefixWithTrail = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
 
-    htmlContent = htmlContent.replace('${HTTP_PREFIX}', httpPrefixWithTrail);
+    htmlContent = htmlContent.replaceAll('${HTTP_PREFIX}', httpPrefixWithTrail);
 
     set.headers['content-type'] = 'text/html; charset=utf-8';
     return htmlContent;
