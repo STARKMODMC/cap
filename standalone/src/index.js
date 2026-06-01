@@ -122,7 +122,7 @@ new Elysia({
     };
   })
   .use(publicStatic)
-  .get("/", async ({ cookie }) => {
+  .get("/", async ({ set, cookie }) => {
     const file = Bun.file(isDemoMode() || cookie.cap_authed?.value === "yes" ?
       './public/index.html'
       : "./public/login.html");
