@@ -17,9 +17,7 @@ const resolveSafePath = (rel) => {
   return resolved;
 };
 
-let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
-
-export const publicStatic = new Elysia({ prefix: httpPrefix }).get(
+export const publicStatic = new Elysia().get(
   "/public/*",
   async ({ cookie, set, request, redirect, headers }) => {
     const rawPath = new URL(request.url).pathname.replace(/^\/public\/?/, "");

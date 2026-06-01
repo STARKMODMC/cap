@@ -73,12 +73,8 @@ const updateCache = async () => {
 updateCache();
 setInterval(updateCache, 1000 * 60 * 60);
 
-let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
-
-httpPrefix = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
-
 export const assetsServer = new Elysia({
-  prefix: httpPrefix + "assets",
+  prefix: "/assets",
   detail: { tags: ["Assets"] },
 })
   .use(

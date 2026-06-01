@@ -59,12 +59,8 @@ const demoWriteGuard = ({ request }) => {
   }
 };
 
-let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
-
-httpPrefix = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
-
 export const server = new Elysia({
-  prefix: httpPrefix + "server",
+  prefix: "/server",
   detail: {
     security: [
       {

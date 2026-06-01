@@ -13,12 +13,8 @@ if (DEMO_MODE !== "true") {
     );
 }
 
-let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
-
-httpPrefix = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
-
 export const auth = new Elysia({
-  prefix: httpPrefix + "auth",
+  prefix: "/auth",
 })
   .use(
     valkeyRateLimit({

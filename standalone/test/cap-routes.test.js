@@ -54,9 +54,7 @@ if (!redisAvailable) {
     return createHash("sha256").update(s).digest("hex");
   }
 
-  let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
-
-  const app = new Elysia({ prefix: httpPrefix }).use(capServer);
+  const app = new Elysia().use(capServer);
   const SITE_KEY = `test_site_key_${Math.random().toString(16).slice(2)}`;
   const SECRET = "test-jwt-secret-32-bytes-padding-junk-1!";
 
