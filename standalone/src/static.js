@@ -60,6 +60,14 @@ export const publicStatic = new Elysia().get(
       : "private, max-age=3600";
     headers["x-content-type-options"] = "nosniff";
 
+    if (f.type === "text/html;charset=utf-8") {
+      let text = await f.text();
+
+      text = text.replace('${HTTP_PREFIX}', httpPrefix);
+
+      return text;
+    }
+
     return f;
   },
 );
