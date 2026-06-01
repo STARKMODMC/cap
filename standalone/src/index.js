@@ -18,8 +18,10 @@ import { publicStatic } from "./static.js";
 
 const serverPort = process.env.SERVER_PORT || 3000;
 const serverHostname = process.env.SERVER_HOSTNAME || "0.0.0.0";
+const httpPrefix = process.env.SERVER_HTTP_PREFIX || "/";
 
 new Elysia({
+  prefix: httpPrefix,
   serve: {
     port: serverPort,
     hostname: serverHostname,
