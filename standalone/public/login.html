@@ -283,7 +283,9 @@
 
       document.querySelector("button[type=submit]").disabled = true;
 
-      const loginUrl = new URL("auth/login", document.baseURI).toString();
+      const currentUrl = new URL(document.baseURI);
+
+      const loginUrl = new URL(currentUrl.pathname + "/auth/login", document.baseURI).toString();
       const { success, session_token, hashed_token, expires } = await (
         await fetch(loginUrl, {
           method: "POST",

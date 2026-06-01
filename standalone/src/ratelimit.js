@@ -56,7 +56,10 @@ export default function valkeyRateLimit({
 } = {}) {
   const scope = scopeCounter++;
 
+  let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
+
   return new Elysia({
+    prefix: httpPrefix,
     name: `cap-ratelimit-${scope}`,
     scoped: true,
   }).onBeforeHandle(async ({ request, set, server: srv, params }) => {

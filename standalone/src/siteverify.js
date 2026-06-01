@@ -4,7 +4,10 @@ import { Elysia } from "elysia";
 import { db } from "./db.js";
 import { checkCorsOrigin } from "./settings-cache.js";
 
+let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
+
 export const siteverifyServer = new Elysia({
+  prefix: httpPrefix,
   detail: {
     tags: ["Challenges"],
   },

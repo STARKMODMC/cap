@@ -201,7 +201,10 @@ async function isBlocked(siteKey, ip) {
   return false;
 }
 
+let httpPrefix = (process.env.SERVER_HTTP_PREFIX || "/");
+
 export const capServer = new Elysia({
+  prefix: httpPrefix,
   detail: {
     tags: ["Challenges"],
   },
