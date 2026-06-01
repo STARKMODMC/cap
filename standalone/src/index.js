@@ -123,12 +123,18 @@ new Elysia({
   })
   .use(publicStatic)
   .get("/", async ({ cookie }) => {
-    if (isDemoMode()) return file("./public/index.html");
-    return file(
-      cookie.cap_authed?.value === "yes"
-        ? "./public/index.html"
-        : "./public/login.html",
-    );
+    const file = Bun.file(isDemoMode() || cookie.cap_authed?.value === "yes" ?
+      './public/index.html'
+      : "./public/login.html");
+    
+    let htmlContent = await file.text();
+
+    const httpPrefixWithTrail = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
+
+    htmlContent = htmlContent.replace('${HTTP_PREFIX}', httpPrefixWithTrail);
+
+    set.headers['content-type'] = 'text/html; charset=utf-8';
+    return htmlContent;
   })
   .use(auth)
   .use(server)
