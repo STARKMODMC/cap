@@ -24,7 +24,10 @@ httpPrefix = !httpPrefix.endsWith("/") ? httpPrefix + "/" : httpPrefix;
 export const publicStatic = new Elysia().get(
   "/public/*",
   async ({ cookie, set, request, redirect, headers }) => {
-    const rawPath = new URL(request.url).pathname.replace(new RegExp("/^" + httpPrefix.replaceAll('/', '\/') + "public\/?/`), "");
+    const pathname = new URL(request.url).pathname;
+    const cleanRegex = new RegExp(`^${httpPrefix}public/?`);
+    const rawPath = pathname.replace(cleanRegex, "");
+
     let rel;
     try {
       rel = decodeURIComponent(rawPath);
